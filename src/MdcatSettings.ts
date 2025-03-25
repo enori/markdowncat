@@ -45,7 +45,7 @@ export class MdcatSettings
             this.onExclusion(obj["exclusion"]);
             this.onTable(obj["table"]);
             return "";
-		} catch (err) {
+		} catch (err: any) {
             //console.error(err);
             return err.message;
         }
