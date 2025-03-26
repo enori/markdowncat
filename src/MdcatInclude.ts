@@ -1,6 +1,6 @@
 import { notDeepEqual } from "assert";
 import MarkdownIt from "markdown-it";
-import Token from "markdown-it/lib/token";
+import Token from "markdown-it/lib/token.mjs";
 //import { MdcatTablePlugin } from "markdown-it-mdcat-table";
 
 

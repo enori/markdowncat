@@ -10,7 +10,7 @@ export default class DocumentDecoration
     public requestUpdate(editor: vscode.TextEditor | undefined, msec: number) {
 
         if (this.timeout) {
-            clearTimeout(this.timeout);
+            // clearTimeout(this.timeout);
             this.timeout = undefined;
         }
 

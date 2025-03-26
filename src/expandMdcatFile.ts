@@ -31,7 +31,7 @@ export default function expandMdcatFile() {
         mdcat.run();
         vscode.window.showInformationMessage(mdcat.outputFilePath);
     }
-    catch (err)
+    catch (err: any)
     {
         vscode.window.showErrorMessage(err.message ?? "error");
     }    
