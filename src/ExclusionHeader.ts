@@ -9,10 +9,10 @@ export class ExclusionHeader
 
     static createWorkFilePath(mdcatPath: string, header: string)
     {
-        // delete comment message from header in filename
-        header = header.replace(/.*<!--.*-->/g, "")
+        // delete comment message and unnecessary blanc from header in filename
+        header = header.replace(/<!--.*-->/g, "").trim();
         // delete escape characters from header in filename
-        header = header.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "")
+        header = header.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "");
 
         var s = "";
         s += path.dirname(mdcatPath);
