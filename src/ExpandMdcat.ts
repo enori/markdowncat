@@ -24,7 +24,7 @@ export class ExpandMdcat
     includingFile: string | null = null;
 
     static mdIt: MarkdownIt | null = null;
-    static mdItOp: MarkdownIt.Options = {};
+    // static mdItOp: MarkdownIt.Options = {}; // error, not used
     static mdItEnv: any = {};
 
     constructor(doc: vscode.TextDocument)
