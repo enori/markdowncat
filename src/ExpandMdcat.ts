@@ -108,9 +108,10 @@ export class ExpandMdcat
             if (it.top() == "$")
             {
                 // インクルードファイルを展開
-                if (mdcat.include_p(it, filepath => this.onInclude(filepath))
-                || mdcat.newpage_p(it, () => this.onNewpage())
-                || mdcat.settings_p(it, json => {})
+                if (mdcat.include_p(it, filepath => 
+                    this.onInclude(filepath))
+                    || mdcat.newpage_p(it, () => this.onNewpage())
+                    || mdcat.settings_p(it, json => {})
                 ){
                     this.onDiscardMatched(it)
                     continue;
@@ -151,6 +152,12 @@ export class ExpandMdcat
         }
         if (str.length > 0)
         {
+            // Shift the current header down one level
+            // TODO: mdcat内の#に影響を与えないようにする
+            if ( /^#+\s.+/.test(str) )
+            {
+                str = "#"+str
+            }
             appendFileSync(this.outputFilePath, str)
         }
         it.discardMatched();
@@ -180,12 +187,14 @@ export class ExpandMdcat
         this.includingFile = filepath;
 
         appendFileSync(this.outputFilePath, "<!-- " + filepath + " -->" + this.eol)
+        // TODO: mdの中身に応じて#の数を調整する
+        // appendFileSync(this.outputFilePath, "## " + filepath + this.eol)
 
         switch (ext)
         {
-        case "css": this.onIncludeCSS(data); break;
-        case "md":  this.onIncludeMD(data); break;
-        default:    appendFileSync(this.outputFilePath, data); break;
+            case "css": this.onIncludeCSS(data); break;
+            case "md":  this.onIncludeMD(data); break;
+            default:    appendFileSync(this.outputFilePath, data); break;
         }
         this.includingFile = null;
     }
@@ -203,10 +212,11 @@ export class ExpandMdcat
 
         while (!it.isEnd())
         {
-            if (space_p(it)
-            || eol_p(it)
-            || md.comment_p(it)
-            || md.header_p(it, (level, header) => this.onMdHeader(level, header))
+            if (
+                space_p(it)
+                || eol_p(it)
+                || md.comment_p(it)
+                || md.header_p(it, (level, header) => this.onMdHeader(level, header))
             ){
                 this.onMdOutput(it);
                 continue;
@@ -220,7 +230,7 @@ export class ExpandMdcat
             }
             
             if (md.code_block_p(it)
-            || line_any_p(it)
+                || line_any_p(it)
             ){
                 this.onMdOutput(it);
                 continue;

@@ -1,6 +1,12 @@
-## 目次 <!-- omit in toc -->
+$settings={
+    "newpage" : null,
+    "exclusion" : { "headers" : ["目次 <!-- omit in toc -->"] },
+    "table" : { "convertHtml" : false }
+}
 
 
-$include='./00_sample.md'
+# 目次
 
-$include='./01_sample.md'
+$include='00_sample.md'
+
+$include='01_sample.md'
